@@ -9,6 +9,7 @@ import DetailPage from "./views/DetailsPage.js";
 import WelcomeScreen from "./views/WelcomeScreen.js";
 import Login from "./views/Login.js";
 import Register from "./views/Register.js";
+import SettingsPage from "./views/SettingsPage.js";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "./firebase.js";
@@ -38,7 +39,7 @@ export default function App() {
           component={GroceryList}
           initialParams={user}
         />
-        <Tab.Screen name="Login" component={Login} />
+        <Tab.Screen name="SettingsPage" component={SettingsPage} />
       </Tab.Navigator>
     );
   }
