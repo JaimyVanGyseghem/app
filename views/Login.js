@@ -9,12 +9,9 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import { firebaseAuth } from "../firebase.js";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
-const Login = () => {
+const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -34,27 +31,9 @@ const Login = () => {
     }
   };
 
-  const signUp = async () => {
-    setLoading(true);
-    console.log("hier");
-    try {
-      const response = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      // console.log(response);
-      alert("Check your emails!");
-    } catch (error) {
-      console.log(error);
-      alert("Sign up failed: " + error.message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
     <View style={styles.container}>
+      <Text>Login!</Text>
       <KeyboardAvoidingView behavior="padding">
         <TextInput
           value={email}
@@ -74,11 +53,13 @@ const Login = () => {
         {loading ? (
           <ActivityIndicator size="large" color="#0000ff" />
         ) : (
-          <>
-            <Button title="Login" onPress={() => signIn()}></Button>
-            <Button title="Create account" onPress={() => signUp()}></Button>
-          </>
+          <Button title="Login" onPress={() => signIn()}></Button>
         )}
+        <Text> Or </Text>
+        <Button
+          onPress={() => navigation.navigate("Register")}
+          title="Register"
+        />
       </KeyboardAvoidingView>
     </View>
   );

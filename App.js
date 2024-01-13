@@ -5,7 +5,10 @@ import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import GroceryList from "./views/GroceryList.js";
+import DetailPage from "./views/DetailsPage.js";
+import WelcomeScreen from "./views/WelcomeScreen.js";
 import Login from "./views/Login.js";
+import Register from "./views/Register.js";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "./firebase.js";
@@ -17,6 +20,8 @@ export default function App() {
   useEffect(() => {
     onAuthStateChanged(firebaseAuth, (x) => {
       if (x) {
+        console.log("hiertomatoo");
+        console.log(x);
         setUser(x);
       } else {
         setUser(null);
@@ -40,7 +45,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login ">
+      <Stack.Navigator initialRouteName="WelcomeScreen">
         {user ? (
           <Stack.Screen
             name="Inside"
@@ -48,8 +53,14 @@ export default function App() {
             options={{ headerShown: false }}
           />
         ) : (
-          <Stack.Screen name="Login" component={Login} />
+          <>
+            <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Register" component={Register} />
+          </>
         )}
+
+        <Stack.Screen name="DetailPage" component={DetailPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );

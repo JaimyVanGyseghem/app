@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 import { firebaseAuth } from "../firebase.js";
-import DetailsPage from "./DetailsPage.js";
 
-const GroceryList = ({ route, navigation: any }) => {
-  console.log("beer");
+const GroceryList = ({ route, navigation }) => {
+  console.log("appel");
+  console.log(navigation);
   console.log(route.params.auth);
 
   return (
@@ -14,7 +14,7 @@ const GroceryList = ({ route, navigation: any }) => {
         Dit is mijn standaard React-component van de grocerylist!
         <Button onPress={() => firebaseAuth.signOut()} title="Logout" />
         <Button
-          onPress={() => navigation.navigate("details")}
+          onPress={() => navigation.navigate("DetailPage")}
           title="Detail page"
         />
       </Text>
