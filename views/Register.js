@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { firebaseAuth, firebaseApp } from "../firebase.js";
+import { firebaseAuth, fireStorage } from "../firebase.js";
+import { ref, uploadBytes } from "firebase/storage";
 import {
   View,
   Text,
@@ -10,35 +11,66 @@ import {
   KeyboardAvoidingView,
 } from "react-native";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import * as ImagePicker from "expo-image-picker";
 
 const Register = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [userName, setUserName] = useState("");
+  const [profilePicture, setProfilePicture] = useState("");
   const auth = firebaseAuth;
 
   const signUp = async () => {
     setLoading(true);
     try {
-      const response = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      // console.log(response);
-      updateProfile(firebaseAuth.currentUser, { displayName: userName }).then(
-        () => {
-          console.log("rinche");
-          console.log(firebaseAuth);
-        }
-      );
+      await createUserWithEmailAndPassword(auth, email, password);
+      updateProfile(firebaseAuth.currentUser, {
+        displayName: userName,
+        // photoURL: profilePicture,
+      }).then(async () => {
+        uploadImage(profilePicture);
+      });
       alert("Check your emails!");
     } catch (error) {
       console.log(error);
       alert("Sign up failed: " + error.message);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const uploadImage = async (uri) => {
+    try {
+      const storage = fireStorage;
+      const filename = Date.now() + ".jpg"; // You can use any name here
+      const storageRef = ref(storage, "profilePics/" + filename);
+      const response = await fetch(uri);
+      const blob = await response.blob();
+
+      // Upload the image
+      await uploadBytes(storageRef, blob);
+
+      console.log("Image uploaded successfully!");
+    } catch (error) {
+      console.error("Error uploading image", error);
+    }
+  };
+
+  const pickImage = async () => {
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+
+      if (!result.cancelled) {
+        setProfilePicture(result.uri);
+      }
+    } catch (error) {
+      console.error("Error picking image", error);
     }
   };
 
@@ -53,6 +85,10 @@ const Register = ({ navigation }) => {
           autoCapitalize="none"
           onChangeText={(text) => setUserName(text)}
         ></TextInput>
+        <Button
+          title="Add a profile picture"
+          onPress={() => pickImage()}
+        ></Button>
         <TextInput
           value={email}
           style={styles.input}

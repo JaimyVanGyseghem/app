@@ -2,11 +2,10 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 
 // Your web app's Firebase configuration
-
 const firebaseConfig = {
   apiKey: "AIzaSyCQ9VrTL31LSYaGIRY8w685LqbBU0R1zV4",
   authDomain: "wonen-app.firebaseapp.com",
@@ -20,6 +19,8 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
 const firebaseAuth = getAuth(firebaseApp);
+const fireStore = getFirestore(firebaseApp);
+const fireStorage = getStorage(firebaseApp);
 // const analytics = getAnalytics(firebaseApp);
 
-export { firebaseApp, firebaseAuth };
+export { firebaseApp, firebaseAuth, fireStore, fireStorage };
