@@ -19,10 +19,9 @@ const Login = ({ navigation }) => {
 
   const signIn = async () => {
     setLoading(true);
-    console.log("hier");
     try {
       const response = await signInWithEmailAndPassword(auth, email, password);
-      console.log("dit? " + response);
+      console.log("sing in +  " + response);
     } catch (error) {
       console.log(error);
       alert("Sign in failed: " + error.message);

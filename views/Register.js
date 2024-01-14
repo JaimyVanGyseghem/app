@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { firebaseAuth } from "../firebase.js";
+import { firebaseAuth, firebaseApp } from "../firebase.js";
 import {
   View,
   Text,
@@ -9,17 +9,17 @@ import {
   Button,
   KeyboardAvoidingView,
 } from "react-native";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 const Register = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [userName, setUserName] = useState("");
   const auth = firebaseAuth;
 
   const signUp = async () => {
     setLoading(true);
-    console.log("hier");
     try {
       const response = await createUserWithEmailAndPassword(
         auth,
@@ -27,6 +27,12 @@ const Register = ({ navigation }) => {
         password
       );
       // console.log(response);
+      updateProfile(firebaseAuth.currentUser, { displayName: userName }).then(
+        () => {
+          console.log("rinche");
+          console.log(firebaseAuth);
+        }
+      );
       alert("Check your emails!");
     } catch (error) {
       console.log(error);
@@ -40,6 +46,13 @@ const Register = ({ navigation }) => {
     <View style={styles.container}>
       <Text>Register now!</Text>
       <KeyboardAvoidingView behavior="padding">
+        <TextInput
+          value={userName}
+          style={styles.input}
+          placeholder="Username"
+          autoCapitalize="none"
+          onChangeText={(text) => setUserName(text)}
+        ></TextInput>
         <TextInput
           value={email}
           style={styles.input}
@@ -60,8 +73,11 @@ const Register = ({ navigation }) => {
         ) : (
           <Button title="Make account" onPress={() => signUp()}></Button>
         )}
-        <Text> Or </Text>
-        <Button onPress={() => navigation.navigate("Login")} title="Login" />
+
+        <Text>
+          Or
+          <Button onPress={() => navigation.navigate("Login")} title="Login" />
+        </Text>
       </KeyboardAvoidingView>
     </View>
   );

@@ -2,13 +2,12 @@ import React from "react";
 import { View, Text, StyleSheet, Button } from "react-native";
 
 const GroceryList = ({ route, navigation }) => {
-  console.log("appel");
   console.log(navigation);
   console.log(route.params.auth);
 
   return (
     <View style={styles.container}>
-      <Text>Hallo, {route.params.auth.currentUser.email}!</Text>
+      <Text>Hallo, {route.params.auth.currentUser.displayName}!</Text>
       <Text style={styles.text}>
         Dit is mijn standaard React-component van de grocerylist!
         <Button
