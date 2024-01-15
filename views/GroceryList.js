@@ -8,10 +8,9 @@ const GroceryList = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       <Text>Hallo, {route.params.auth.currentUser.displayName}!</Text>
-      <Text>{route.params.auth.currentUser.photoURL}</Text>
       <Image
-        source={{ uri: route.params.auth.currentUser.photoURL }} // vervang dit met de URL of het pad naar je afbeelding
-        style={styles.image}
+        style={styles.tinyLogo}
+        source={{ uri: route.params.auth.currentUser.photoURL }}
       />
       <Text style={styles.text}>
         Dit is mijn standaard React-component van de grocerylist!
@@ -33,6 +32,10 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 18,
     fontWeight: "bold",
+  },
+  tinyLogo: {
+    width: 100,
+    height: 100,
   },
 });
 

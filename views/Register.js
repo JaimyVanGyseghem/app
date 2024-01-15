@@ -56,11 +56,11 @@ const Register = ({ navigation }) => {
 
       // Upload the image
       await uploadBytes(storageRef, blob);
+      // image download link van firebase
       const downloadableProfileImage = await getDownloadURL(storageRef);
-      // hier is de code
       updateProfile(firebaseAuth.currentUser, {
         displayName: userName,
-        photoURL: photoURL,
+        photoURL: downloadableProfileImage,
       });
       console.log("Image uploaded successfully!");
       console.log(firebaseAuth);
