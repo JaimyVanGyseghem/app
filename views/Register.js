@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { firebaseAuth, fireStorage } from "../firebase.js";
-import { ref, uploadBytes } from "firebase/storage";
+import { firebaseAuth, fireStorage, fireStore } from "../firebase.js";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import {
   View,
   Text,
@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import * as ImagePicker from "expo-image-picker";
+import { collection, addDoc } from "firebase/firestore";
 
 const Register = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -48,10 +49,22 @@ const Register = ({ navigation }) => {
       const response = await fetch(uri);
       const blob = await response.blob();
 
+      // images adden in collectie?
+      // addDoc(collection(fireStore, "images"), {
+      //   blob,
+      // });
+
       // Upload the image
       await uploadBytes(storageRef, blob);
-
+      const downloadableProfileImage = await getDownloadURL(storageRef);
+      // hier is de code
+      updateProfile(firebaseAuth.currentUser, {
+        displayName: userName,
+        photoURL: photoURL,
+      });
       console.log("Image uploaded successfully!");
+      console.log(firebaseAuth);
+      console.log(downloadableProfileImage);
     } catch (error) {
       console.error("Error uploading image", error);
     }
