@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import * as ImagePicker from "expo-image-picker";
+import { useStore } from "../store/States.js";
 import { collection, addDoc } from "firebase/firestore";
 
 const Register = ({ navigation }) => {
@@ -21,6 +22,8 @@ const Register = ({ navigation }) => {
   const [userName, setUserName] = useState("");
   const [profilePicture, setProfilePicture] = useState("");
   const auth = firebaseAuth;
+  const updateProfileName = useStore((state) => state.updateProfileName);
+  const updateProfilePicture = useStore((state) => state.updateProfilePicture);
 
   const signUp = async () => {
     setLoading(true);
@@ -30,6 +33,7 @@ const Register = ({ navigation }) => {
         displayName: userName,
         // photoURL: profilePicture,
       }).then(async () => {
+        updateProfileName(userName);
         uploadImage(profilePicture);
       });
       alert("Check your emails!");
@@ -62,6 +66,7 @@ const Register = ({ navigation }) => {
         displayName: userName,
         photoURL: downloadableProfileImage,
       });
+      updateProfilePicture(downloadableProfileImage);
       console.log("Image uploaded successfully!");
       console.log(firebaseAuth);
       console.log(downloadableProfileImage);

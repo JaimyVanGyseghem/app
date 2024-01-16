@@ -1,17 +1,14 @@
 import React from "react";
 import { View, Text, StyleSheet, Button, Image } from "react-native";
+import { useStore } from "../store/States.js";
 
 const GroceryList = ({ route, navigation }) => {
-  console.log(navigation);
-  console.log(route.params.auth);
-  console.log(route.params.auth.currentUser.photoURL);
+  const profileName = useStore((state) => state.profileName);
+  const profilePicture = useStore((state) => state.profilePicture);
   return (
     <View style={styles.container}>
-      <Text>Hallo, {route.params.auth.currentUser.displayName}!</Text>
-      <Image
-        style={styles.tinyLogo}
-        source={{ uri: route.params.auth.currentUser.photoURL }}
-      />
+      <Text>{profileName}</Text>
+      <Image style={styles.tinyLogo} source={{ uri: profilePicture }} />
       <Text style={styles.text}>
         Dit is mijn standaard React-component van de grocerylist!
         <Button
