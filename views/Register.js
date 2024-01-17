@@ -13,7 +13,7 @@ import {
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import * as ImagePicker from "expo-image-picker";
 import { useStore } from "../store/States.js";
-import { collection, addDoc } from "firebase/firestore";
+import { useFirebaseStates } from "../store/FirestoreStates.js";
 
 const Register = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -24,6 +24,7 @@ const Register = ({ navigation }) => {
   const auth = firebaseAuth;
   const updateProfileName = useStore((state) => state.updateProfileName);
   const updateProfilePicture = useStore((state) => state.updateProfilePicture);
+  const updateUserId = useFirebaseStates((state) => state.updateUserId);
 
   const signUp = async () => {
     setLoading(true);
@@ -35,6 +36,7 @@ const Register = ({ navigation }) => {
       }).then(async () => {
         updateProfileName(userName);
         uploadImage(profilePicture);
+        updateUserId(auth.currentUser.uid);
       });
       alert("Check your emails!");
     } catch (error) {

@@ -8,7 +8,7 @@ const GroceryList = ({ route, navigation }) => {
   const { data, setData } = useFirebaseStates();
   const handleAddData = () => {
     // Call the setData function to add data to Firestore
-    setData("Hello, Firestore hehe!");
+    setData("Hello, Firestore hohe!");
     console.log(data);
   };
   return (

@@ -11,6 +11,7 @@ import {
 import { firebaseAuth } from "../firebase.js";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useStore } from "../store/States.js";
+import { useFirebaseStates } from "../store/FirestoreStates.js";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -19,6 +20,7 @@ const Login = ({ navigation }) => {
   const auth = firebaseAuth;
   const updateProfileName = useStore((state) => state.updateProfileName);
   const updateProfilePicture = useStore((state) => state.updateProfilePicture);
+  const updateUserId = useFirebaseStates((state) => state.updateUserId);
 
   const signIn = async () => {
     setLoading(true);
@@ -26,6 +28,7 @@ const Login = ({ navigation }) => {
       const response = await signInWithEmailAndPassword(auth, email, password);
       updateProfileName(response._tokenResponse.displayName);
       updateProfilePicture(response._tokenResponse.profilePicture);
+      updateUserId(auth.currentUser.uid);
     } catch (error) {
       console.log(error);
       alert("Sign in failed: " + error.message);
