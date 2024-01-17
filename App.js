@@ -31,11 +31,7 @@ export default function App() {
     const Tab = createBottomTabNavigator();
     return (
       <Tab.Navigator>
-        <Tab.Screen
-          name="GroceryList"
-          component={GroceryList}
-          initialParams={user}
-        />
+        <Tab.Screen name="GroceryList" component={GroceryList} />
         <Tab.Screen name="SettingsPage" component={SettingsPage} />
       </Tab.Navigator>
     );
