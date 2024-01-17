@@ -1,11 +1,14 @@
 import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, Button, Image } from "react-native";
 import { firebaseAuth } from "../firebase.js";
+import { useStore } from "../store/States.js";
 
 const SettingsPage = () => {
+  const profilePicture = useStore((state) => state.profilePicture);
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Dit is de settings page!</Text>
+      <Image style={styles.tinyLogo} source={{ uri: profilePicture }} />
       <Button onPress={() => firebaseAuth.signOut()} title="Logout" />
     </View>
   );
@@ -20,6 +23,10 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 18,
     fontWeight: "bold",
+  },
+  tinyLogo: {
+    width: 100,
+    height: 100,
   },
 });
 

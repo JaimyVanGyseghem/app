@@ -8,7 +8,7 @@ const GroceryList = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       <Text>{profileName}</Text>
-      <Image style={styles.tinyLogo} source={{ uri: profilePicture }} />
+
       <Text style={styles.text}>
         Dit is mijn standaard React-component van de grocerylist!
         <Button
