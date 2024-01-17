@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import GroceryList from "./views/GroceryList.js";
 import DetailPage from "./views/DetailsPage.js";
 import WelcomeScreen from "./views/WelcomeScreen.js";
+import Recepts from "./views/Recepts.js";
 import Login from "./views/Login.js";
 import Register from "./views/Register.js";
 import SettingsPage from "./views/SettingsPage.js";
@@ -31,6 +32,7 @@ export default function App() {
     const Tab = createBottomTabNavigator();
     return (
       <Tab.Navigator>
+        <Tab.Screen name="Recepts" component={Recepts} />
         <Tab.Screen name="GroceryList" component={GroceryList} />
         <Tab.Screen name="SettingsPage" component={SettingsPage} />
       </Tab.Navigator>
