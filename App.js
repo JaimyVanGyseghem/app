@@ -32,7 +32,11 @@ export default function App() {
     const Tab = createBottomTabNavigator();
     return (
       <Tab.Navigator>
-        <Tab.Screen name="ReceptNavigation" component={ReceptNavigation} />
+        <Tab.Screen
+          name="ReceptNavigation"
+          component={ReceptNavigation}
+          options={{ unmountOnBlur: true }}
+        />
         <Tab.Screen name="GroceryList" component={GroceryList} />
         <Tab.Screen name="SettingsPage" component={SettingsPage} />
       </Tab.Navigator>
