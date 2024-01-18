@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import GroceryList from "./views/GroceryList.js";
-import DetailPage from "./views/DetailsPage.js";
 import WelcomeScreen from "./views/WelcomeScreen.js";
 import Recepts from "./views/Recepts.js";
 import Login from "./views/Login.js";
@@ -13,6 +12,7 @@ import SettingsPage from "./views/SettingsPage.js";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "./firebase.js";
+import ReceptNavigation from "./navigation/ReceptNavigation.js";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -32,7 +32,7 @@ export default function App() {
     const Tab = createBottomTabNavigator();
     return (
       <Tab.Navigator>
-        <Tab.Screen name="Recepts" component={Recepts} />
+        <Tab.Screen name="ReceptNavigation" component={ReceptNavigation} />
         <Tab.Screen name="GroceryList" component={GroceryList} />
         <Tab.Screen name="SettingsPage" component={SettingsPage} />
       </Tab.Navigator>
@@ -55,8 +55,6 @@ export default function App() {
             <Stack.Screen name="Register" component={Register} />
           </>
         )}
-
-        <Stack.Screen name="DetailPage" component={DetailPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );

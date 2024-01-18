@@ -1,9 +1,10 @@
-import React from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, Button, Pressable } from "react-native";
 import { useFirebaseStates } from "../store/FirestoreStates.js";
 
-const Recepts = () => {
+const Recepts = ({ route, navigation }) => {
   const { data, setData } = useFirebaseStates();
+  const [modalVisible, setModalVisible] = useState(false);
 
   const handleAddData = () => {
     // Call the setData function to add data to Firestore
@@ -22,7 +23,10 @@ const Recepts = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Dit zijn mijn recepten!</Text>
-      <Button title="Add a recept" onPress={handleAddData} />
+      <Button
+        onPress={() => navigation.navigate("DetailsPage")}
+        title="Add a recept"
+      />
     </View>
   );
 };
@@ -36,6 +40,23 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 18,
     fontWeight: "bold",
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
 });
 
