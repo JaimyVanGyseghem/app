@@ -4,10 +4,10 @@ import { getAuth } from "firebase/auth";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
-
+import { REACT_APP_API_KEY } from "@env";
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCQ9VrTL31LSYaGIRY8w685LqbBU0R1zV4",
+  apiKey: REACT_APP_API_KEY,
   authDomain: "wonen-app.firebaseapp.com",
   projectId: "wonen-app",
   storageBucket: "wonen-app.appspot.com",
