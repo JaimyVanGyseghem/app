@@ -10,10 +10,6 @@ const GroceryList = ({ route, navigation }) => {
       <Text>{profileName}</Text>
       <Text style={styles.text}>
         Dit is mijn standaard React-component van de grocerylist!
-        <Button
-          onPress={() => navigation.navigate("DetailPage")}
-          title="Detail page"
-        />
       </Text>
     </View>
   );

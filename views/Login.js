@@ -26,6 +26,9 @@ const Login = ({ navigation }) => {
     setLoading(true);
     try {
       const response = await signInWithEmailAndPassword(auth, email, password);
+      console.log("hehe");
+      console.log(process.env);
+      console.log(process.env.REACT_APP_BASE_URL);
       updateProfileName(response._tokenResponse.displayName);
       updateProfilePicture(response._tokenResponse.profilePicture);
       updateUserId(auth.currentUser.uid);
