@@ -23,7 +23,9 @@ const DetailsPage = () => {
         name="firstName"
         placeholder="First name"
         rules={{ required: true }}
+        errors={errors}
       />
+
       <Button title="Submit" onPress={handleSubmit(onSubmit)} />
     </View>
   );

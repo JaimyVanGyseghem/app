@@ -7,6 +7,7 @@ export default function ControllerTextInput({
   name,
   placeholder,
   rules,
+  errors,
 }) {
   return (
     <>
@@ -24,7 +25,7 @@ export default function ControllerTextInput({
         name={name}
       />
 
-      {rules.required && <Text>This is required.</Text>}
+      {errors[name] && <Text>This is required.</Text>}
     </>
   );
 }
