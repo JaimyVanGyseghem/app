@@ -2,12 +2,17 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, Button, TextInput, Alert } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import ControllerTextInput from "../components/ControllerTextInput";
+import { Picker } from "@react-native-picker/picker";
+import { useFirebaseStates } from "../store/FirestoreStates.js";
 
 const DetailsPage = () => {
-  const [ingredients, setIngredients] = useState([
-    "", // Initial ingredients state with 1 empty string
-  ]);
-
+  // Initial ingredients state with 1 empty string
+  const [ingredients, setIngredients] = useState([""]);
+  // Categories to choose from when making a recipe
+  const categories = ["Pizza", "Pasta", "Sushi", "Burgers", "Dessert"];
+  // Write the data to the firestore
+  const { data, setData } = useFirebaseStates();
+  // Using the submit/error functions and values from react hook form
   const {
     control,
     handleSubmit,
@@ -16,10 +21,13 @@ const DetailsPage = () => {
     defaultValues: {
       description: "",
       ingredients: [""],
+      price: "",
+      category: "",
+      time: "",
     },
   });
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => setData("recipes", data);
 
   const handleAddIngredient = () => {
     // Add an empty string to the ingredients array
@@ -35,6 +43,23 @@ const DetailsPage = () => {
         placeholder="recipe name"
         rules={{ required: true }}
         errors={errors}
+      />
+      <Text>Category</Text>
+      <Controller
+        name="category"
+        control={control}
+        render={({ field: { onChange, value } }) => (
+          <Picker selectedValue={value} onValueChange={onChange}>
+            {categories.map((category) => (
+              <Picker.Item
+                key={category}
+                style={styles.picker}
+                label={category}
+                value={category}
+              />
+            ))}
+          </Picker>
+        )}
       />
       <Text>Ingredients</Text>
 
@@ -61,6 +86,26 @@ const DetailsPage = () => {
         multiline={true}
         numberOfLines={5}
       />
+      <View style={styles.priceAndAmount}>
+        <View>
+          <Text>Total recipe price</Text>
+          <ControllerTextInput
+            control={control}
+            name="price"
+            placeholder="price"
+            errors={errors}
+          />
+        </View>
+        <View>
+          <Text>Total Time to make</Text>
+          <ControllerTextInput
+            control={control}
+            name="time"
+            placeholder="time"
+            errors={errors}
+          />
+        </View>
+      </View>
       <Button title="Submit" onPress={handleSubmit(onSubmit)} />
     </View>
   );
@@ -84,6 +129,20 @@ const styles = StyleSheet.create({
   ingredientNumber: {
     marginRight: 10,
     fontWeight: "bold",
+  },
+  picker: {
+    fontSize: 16,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderWidth: 0.5,
+    borderColor: "purple",
+    borderRadius: 8,
+    color: "black",
+    paddingRight: 30, // to ensure the text is never behind the icon
+  },
+  priceAndAmount: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
 
