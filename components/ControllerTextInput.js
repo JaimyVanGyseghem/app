@@ -9,31 +9,45 @@ export default function ControllerTextInput({
   rules,
   errors,
   multiline,
-  numberOfLines,
 }) {
   return (
     <>
       <Controller
         control={control}
         rules={rules}
+        name={name}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
-            style={{
-              height: multiline ? 100 : undefined,
-              textAlignVertical: multiline ? "top" : "auto",
-            }}
+            style={
+              ({
+                height: multiline ? 100 : undefined,
+                verticalAlign: multiline ? "top" : "auto",
+              },
+              styles.input)
+            }
             placeholder={placeholder}
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
             multiline={multiline}
-            numberOfLines={multiline ? 5 : undefined}
+            rows={multiline ? 5 : undefined}
           />
         )}
-        name={name}
       />
 
       {errors[name] && <Text>This is required.</Text>}
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  input: {
+    marginVertical: 4,
+    height: 50,
+    borderWidth: 1,
+    borderRadius: 4,
+    padding: 10,
+    backgroundColor: "#fff",
+    width: "80%",
+  },
+});
