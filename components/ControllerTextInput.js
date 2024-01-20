@@ -8,6 +8,8 @@ export default function ControllerTextInput({
   placeholder,
   rules,
   errors,
+  multiline,
+  numberOfLines,
 }) {
   return (
     <>
@@ -16,10 +18,16 @@ export default function ControllerTextInput({
         rules={rules}
         render={({ field: { onChange, onBlur, value } }) => (
           <TextInput
+            style={{
+              height: multiline ? 100 : undefined,
+              textAlignVertical: multiline ? "top" : "auto",
+            }}
             placeholder={placeholder}
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
+            multiline={multiline}
+            numberOfLines={multiline ? 5 : undefined}
           />
         )}
         name={name}

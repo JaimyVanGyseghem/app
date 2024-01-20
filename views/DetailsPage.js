@@ -20,10 +20,19 @@ const DetailsPage = () => {
     <View>
       <ControllerTextInput
         control={control}
-        name="firstName"
-        placeholder="First name"
+        name="recipeName"
+        placeholder="recipe name"
         rules={{ required: true }}
         errors={errors}
+      />
+      <ControllerTextInput
+        control={control}
+        name="description"
+        placeholder="Description"
+        rules={{ required: true }}
+        errors={errors}
+        multiline={true}
+        numberOfLines={5}
       />
 
       <Button title="Submit" onPress={handleSubmit(onSubmit)} />
