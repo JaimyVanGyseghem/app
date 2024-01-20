@@ -5,6 +5,8 @@ import {
   addDoc,
   doc,
   setDoc,
+  query,
+  getDocs,
 } from "firebase/firestore";
 import { fireStore } from "../firebase.js";
 
@@ -27,6 +29,33 @@ export const useFirebaseStates = create((set) => ({
       console.log("Collection item added with ID: ", newCollectionRef.id);
     } catch (error) {
       console.error("Error adding recipe document: ", error);
+    }
+  },
+  recipeData: "",
+  getRecipeData: async (collectionName) => {
+    try {
+      const userId = useFirebaseStates.getState().userId;
+
+      // Access Firestore and get documents from the specified subcollection
+      const getCollection = collection(
+        fireStore,
+        "users",
+        userId,
+        collectionName
+      );
+      const querySnapshot = await getDocs(getCollection);
+
+      // Extract data from the query snapshot
+      const allData = querySnapshot.docs.map((doc) => doc.data());
+
+      // Conditionally update recipeData state
+      if (collectionName === "recipes") {
+        set(() => ({ recipeData: allData }));
+      }
+      return allData;
+    } catch (error) {
+      console.error("Error getting recipe data: ", error);
+      return null;
     }
   },
 }));

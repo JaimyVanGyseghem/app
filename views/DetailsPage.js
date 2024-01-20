@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Button, TextInput, Alert } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  ScrollView,
+  Alert,
+} from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import ControllerTextInput from "../components/ControllerTextInput";
 import { Picker } from "@react-native-picker/picker";
@@ -11,7 +18,7 @@ const DetailsPage = () => {
   // Categories to choose from when making a recipe
   const categories = ["Pizza", "Pasta", "Sushi", "Burgers", "Dessert"];
   // Write the data to the firestore
-  const { data, setData } = useFirebaseStates();
+  const { data, setData, getRecipeData } = useFirebaseStates();
   // Using the submit/error functions and values from react hook form
   const {
     control,
@@ -27,7 +34,13 @@ const DetailsPage = () => {
     },
   });
 
-  const onSubmit = (data) => setData("recipes", data);
+  const onSubmit = (data) => {
+    setData("recipes", data);
+    const fetchRecipes = async () => {
+      await getRecipeData("recipes");
+    };
+    fetchRecipes();
+  };
 
   const handleAddIngredient = () => {
     // Add an empty string to the ingredients array
@@ -35,7 +48,10 @@ const DetailsPage = () => {
   };
 
   return (
-    <View>
+    <ScrollView
+      // contentContainerStyle={styles.container}
+      keyboardShouldPersistTaps="handled"
+    >
       <Text>Recipe name</Text>
       <ControllerTextInput
         control={control}
@@ -107,7 +123,7 @@ const DetailsPage = () => {
         </View>
       </View>
       <Button title="Submit" onPress={handleSubmit(onSubmit)} />
-    </View>
+    </ScrollView>
   );
 };
 
