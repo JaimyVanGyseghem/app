@@ -16,7 +16,6 @@ export const useFirebaseStates = create((set) => ({
   setData: async (collectionName, collectionData) => {
     try {
       const userId = useFirebaseStates.getState().userId;
-
       // Access Firestore and add a document to the 'recipes' subcollection
       const addCollection = collection(
         fireStore,
@@ -35,7 +34,7 @@ export const useFirebaseStates = create((set) => ({
   getRecipeData: async (collectionName) => {
     try {
       const userId = useFirebaseStates.getState().userId;
-
+      console.log(userId);
       // Access Firestore and get documents from the specified subcollection
       const getCollection = collection(
         fireStore,
@@ -48,7 +47,7 @@ export const useFirebaseStates = create((set) => ({
       // Extract data from the query snapshot
       const allData = querySnapshot.docs.map((doc) => doc.data());
 
-      // Conditionally update recipeData state
+      // update the recipeData state
       if (collectionName === "recipes") {
         set(() => ({ recipeData: allData }));
       }
@@ -58,5 +57,6 @@ export const useFirebaseStates = create((set) => ({
       return null;
     }
   },
+  deleteRecipeData: () => set(() => ({ recipeData: "" })),
 }));
 // useFirebaseStates.getState().userId

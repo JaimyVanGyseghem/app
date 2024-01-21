@@ -22,13 +22,15 @@ const Recepts = ({ route, navigation }) => {
     <View style={styles.container}>
       <Text style={styles.text}>Dit zijn mijn recepten!</Text>
       <View>
-        {recipeData.map((recipe) => (
-          <View style={styles.allTheRecipes}>
-            <Text>{recipe.recipeName}</Text>
-            <Text>{recipe.ingredients}</Text>
-            <Text>{recipe.description}</Text>
-          </View>
-        ))}
+        {recipeData
+          ? recipeData.map((recipe, index) => (
+              <View key={index} style={styles.allTheRecipes}>
+                <Text>{recipe.recipeName}</Text>
+                <Text>{recipe.ingredients}</Text>
+                <Text>{recipe.description}</Text>
+              </View>
+            ))
+          : ""}
       </View>
       <Button
         onPress={() => navigation.navigate("DetailsPage")}

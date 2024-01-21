@@ -21,11 +21,23 @@ const Login = ({ navigation }) => {
   const updateProfileName = useStore((state) => state.updateProfileName);
   const updateProfilePicture = useStore((state) => state.updateProfilePicture);
   const updateUserId = useFirebaseStates((state) => state.updateUserId);
+  const { getRecipeData } = useFirebaseStates();
+
+  // const fetchRecipes = async () => {
+  //   const recipeData = await getRecipeData("recipes");
+  //   if (recipeData) {
+  //     // Do something with the retrieved recipe data
+  //     console.log("Recipe data: ", recipeData);
+  //   } else {
+  //     console.log("Error fetching recipe data");
+  //   }
+  // };
 
   const signIn = async () => {
     setLoading(true);
     try {
       const response = await signInWithEmailAndPassword(auth, email, password);
+      // fetchRecipes();
       updateProfileName(response._tokenResponse.displayName);
       updateProfilePicture(response._tokenResponse.profilePicture);
       updateUserId(auth.currentUser.uid);
