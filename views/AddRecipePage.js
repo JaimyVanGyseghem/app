@@ -8,11 +8,11 @@ import {
   Alert,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import ControllerTextInput from "../components/ControllerTextInput";
+import ControllerTextInput from "../components/ControllerTextInput.js";
 import { Picker } from "@react-native-picker/picker";
 import { useFirebaseStates } from "../store/FirestoreStates.js";
 
-const DetailsPage = () => {
+const AddRecipePage = ({ navigation }) => {
   // Initial ingredients state with 1 empty string
   const [ingredients, setIngredients] = useState([""]);
   // Categories to choose from when making a recipe
@@ -29,7 +29,7 @@ const DetailsPage = () => {
       description: "",
       ingredients: [""],
       price: "",
-      category: "",
+      category: "Pizza",
       time: "",
     },
   });
@@ -40,6 +40,7 @@ const DetailsPage = () => {
       await getRecipeData("recipes");
     };
     fetchRecipes();
+    navigation.navigate("Recepts");
   };
 
   const handleAddIngredient = () => {
@@ -162,4 +163,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DetailsPage;
+export default AddRecipePage;

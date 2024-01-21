@@ -55,11 +55,6 @@ const Register = ({ navigation }) => {
       const response = await fetch(uri);
       const blob = await response.blob();
 
-      // images adden in collectie?
-      // addDoc(collection(fireStore, "images"), {
-      //   blob,
-      // });
-
       // Upload the image
       await uploadBytes(storageRef, blob);
       // image download link van firebase
@@ -69,9 +64,6 @@ const Register = ({ navigation }) => {
         photoURL: downloadableProfileImage,
       });
       updateProfilePicture(downloadableProfileImage);
-      console.log("Image uploaded successfully!");
-      console.log(firebaseAuth);
-      console.log(downloadableProfileImage);
     } catch (error) {
       console.error("Error uploading image", error);
     }

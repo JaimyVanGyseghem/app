@@ -33,7 +33,7 @@ const Recepts = ({ route, navigation }) => {
           : ""}
       </View>
       <Button
-        onPress={() => navigation.navigate("DetailsPage")}
+        onPress={() => navigation.navigate("AddRecipePage")}
         title="Add a recept"
       />
     </View>

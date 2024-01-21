@@ -1,6 +1,6 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import DetailsPage from "../views/DetailsPage.js";
+import AddRecipePage from "../views/AddRecipePage.js";
 import Recepts from "../views/Recepts.js";
 
 const Stack = createNativeStackNavigator();
@@ -14,8 +14,8 @@ const ReceptNavigation = () => (
       options={{ headerShown: false }}
     />
     <Stack.Screen
-      name="DetailsPage"
-      component={DetailsPage}
+      name="AddRecipePage"
+      component={AddRecipePage}
       options={{ headerShown: false }}
     />
   </Stack.Navigator>
