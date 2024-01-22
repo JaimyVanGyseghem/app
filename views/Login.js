@@ -23,16 +23,6 @@ const Login = ({ navigation }) => {
   const updateUserId = useFirebaseStates((state) => state.updateUserId);
   const { getRecipeData } = useFirebaseStates();
 
-  // const fetchRecipes = async () => {
-  //   const recipeData = await getRecipeData("recipes");
-  //   if (recipeData) {
-  //     // Do something with the retrieved recipe data
-  //     console.log("Recipe data: ", recipeData);
-  //   } else {
-  //     console.log("Error fetching recipe data");
-  //   }
-  // };
-
   const signIn = async () => {
     setLoading(true);
     try {

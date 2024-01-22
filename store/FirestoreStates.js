@@ -34,7 +34,6 @@ export const useFirebaseStates = create((set) => ({
   getRecipeData: async (collectionName) => {
     try {
       const userId = useFirebaseStates.getState().userId;
-      console.log(userId);
       // Access Firestore and get documents from the specified subcollection
       const getCollection = collection(
         fireStore,
