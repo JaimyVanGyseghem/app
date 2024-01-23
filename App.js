@@ -35,10 +35,18 @@ export default function App() {
         <Tab.Screen
           name="ReceptNavigation"
           component={ReceptNavigation}
-          options={{ unmountOnBlur: true }}
+          options={{ unmountOnBlur: true, headerShown: false }}
         />
-        <Tab.Screen name="GroceryList" component={GroceryList} />
-        <Tab.Screen name="SettingsPage" component={SettingsPage} />
+        <Tab.Screen
+          name="GroceryList"
+          component={GroceryList}
+          options={{ headerShown: false }}
+        />
+        <Tab.Screen
+          name="SettingsPage"
+          component={SettingsPage}
+          options={{ headerShown: false }}
+        />
       </Tab.Navigator>
     );
   }

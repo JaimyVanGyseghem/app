@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Button, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Button,
+  Pressable,
+  TouchableOpacity,
+} from "react-native";
 import { useFirebaseStates } from "../store/FirestoreStates.js";
 
 const Recepts = ({ route, navigation }) => {
@@ -24,11 +31,17 @@ const Recepts = ({ route, navigation }) => {
       <View>
         {recipeData
           ? recipeData.map((recipe, index) => (
-              <View key={index} style={styles.allTheRecipes}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("DetailPageRecept", { recipe })
+                }
+                key={index}
+                style={styles.allTheRecipes}
+              >
                 <Text>{recipe.recipeName}</Text>
                 <Text>{recipe.ingredients}</Text>
                 <Text>{recipe.description}</Text>
-              </View>
+              </TouchableOpacity>
             ))
           : ""}
       </View>

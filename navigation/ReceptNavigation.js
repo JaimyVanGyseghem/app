@@ -2,6 +2,7 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AddRecipePage from "../views/AddRecipePage.js";
 import Recepts from "../views/Recepts.js";
+import DetailPageRecept from "../views/DetailPageRecept.js";
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +17,11 @@ const ReceptNavigation = () => (
     <Stack.Screen
       name="AddRecipePage"
       component={AddRecipePage}
+      options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="DetailPageRecept"
+      component={DetailPageRecept}
       options={{ headerShown: false }}
     />
   </Stack.Navigator>
