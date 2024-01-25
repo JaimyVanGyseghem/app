@@ -21,7 +21,6 @@ const Login = ({ navigation }) => {
   const updateProfileName = useStore((state) => state.updateProfileName);
   const updateProfilePicture = useStore((state) => state.updateProfilePicture);
   const updateUserId = useFirebaseStates((state) => state.updateUserId);
-  const { getRecipeData } = useFirebaseStates();
 
   const signIn = async () => {
     setLoading(true);

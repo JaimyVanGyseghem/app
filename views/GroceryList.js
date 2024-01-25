@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, Button, Image } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { useStore } from "../store/States.js";
 
 const GroceryList = ({ route, navigation }) => {

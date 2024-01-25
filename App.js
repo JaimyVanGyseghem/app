@@ -1,11 +1,9 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import GroceryList from "./views/GroceryList.js";
 import WelcomeScreen from "./views/WelcomeScreen.js";
-import Recepts from "./views/Recepts.js";
 import Login from "./views/Login.js";
 import Register from "./views/Register.js";
 import SettingsPage from "./views/SettingsPage.js";
